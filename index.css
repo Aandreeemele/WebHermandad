@@ -19,6 +19,7 @@ html, body {
     background-color: #000;
     border-radius: 0 0 15px 15px;
     box-sizing: border-box; /* ✅ evita que el padding empuje el ancho */
+    position: relative;
 }
 
 .imgEscudo {
@@ -30,6 +31,41 @@ html, body {
     font-size: 2rem;
     color: white;
     cursor: pointer;
+}
+
+/* ===== MENU DESPLEGABLE ===== */
+.navMenu {
+    display: none; 
+    position: absolute;
+    top: 70px; 
+    right: 5px;
+    background-color: #111111cd;
+    border-radius: 10px;
+    padding: 15px;
+    z-index: 10;
+    width: 200px;
+    height: 300px;
+}
+
+.navMenu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navMenu li {
+    margin: 10px 0;
+}
+
+.navMenu a {
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+    transition: color 0.3s;
+}
+
+.navMenu a:hover {
+    color: #ffcc00; /* amarillo al pasar el mouse */
 }
 
 /* ===== SLIDER ===== */

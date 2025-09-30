@@ -9,7 +9,16 @@
 <body>
     <header class="header">
         <img src="./assets/escudo.png" alt="Escudo" class="imgEscudo">    
-        <div class="menu">☰</div>
+        <div class="menu" id="menuBtn">☰</div>
+        <!-- 🔽 Menú desplegable -->
+        <nav class="navMenu" id="navMenu">
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Historia</a></li>
+                <li><a href="#">Imágenes</a></li>
+                <li><a href="#">Devotos</a></li>
+            </ul>
+        </nav>
     </header>
 
     <main>
@@ -28,6 +37,7 @@
     </footer>
 
     <script>
+        // ===== SLIDER =====
         let index = 0;
         const slider = document.getElementById("slider");
         const totalSlides = document.querySelectorAll(".slide").length;
@@ -37,6 +47,14 @@
             slider.style.transform = `translateX(-${index * 100}%)`;
         }
         setInterval(moveSlide, 10000);
+
+        // ===== MENU DESPLEGABLE =====
+        const menuBtn = document.getElementById("menuBtn");
+        const navMenu = document.getElementById("navMenu");
+
+        menuBtn.addEventListener("click", () => {
+            navMenu.style.display = navMenu.style.display === "block" ? "none" : "block";
+        });
     </script>
 </body>
 </html>
