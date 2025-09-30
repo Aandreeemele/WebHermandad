@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Hermandad Jesus del Aposento</title>
+</head>
+<body>
+    <header class="header">
+        <img src="./assets/escudo.png" alt="" class="imgEscudo">    
+        <div class="menu">☰</div>
+    </header>
+
+    <div class="divs1">
+        <div class="slider" id="slider">
+            <div class="slide"><img src="./assets/señorSepultado.jpeg" alt="Imagen 1" class="img"></div>
+            <div class="slide"><img src="./assets/Aposento.jpeg" alt="Imagen 2" class="img"></div>
+            <div class="slide"><img src="./assets/SeñorSepultado1.jpeg" alt="Imagen 3" class="img"></div>
+            <div class="slide"><img src="./assets/aposento2.jpeg" alt="Imagen 4" class="img"></div>
+        </div>
+    </div>
+
+    <footer class="footer"></footer>
+
+    <script>
+        let index = 0;
+        const slider = document.getElementById("slider");
+        const totalSlides = document.querySelectorAll(".slide").length;
+
+        function moveSlide() {
+            index = (index + 1) % totalSlides;
+            slider.style.transform = `translateX(-${index * 100}%)`;
+        }
+        setInterval(moveSlide, 10000);
+    </script>
+</body>
+</html>
