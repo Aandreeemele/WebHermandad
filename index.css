@@ -1,31 +1,47 @@
-body{
+/* ===== GENERAL ===== */
+html, body {
     background-color: black;
-}
-.header {
-    background-color: rgb(0, 0, 0);
-    width: 100%;
-    height: 100px;
-    border-radius: 20px;   
-}
-.menu{
-    width: 50px;
-    font-size: 2.5rem;
-    position: relative;
-    left: 26.5rem;
-    top: -5.5rem;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
     color: white;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden; /* 🚫 elimina scroll horizontal */
 }
-.imgEscudo{
+
+/* ===== HEADER ===== */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #000;
+    border-radius: 0 0 15px 15px;
+    box-sizing: border-box; /* ✅ evita que el padding empuje el ancho */
+}
+
+.imgEscudo {
     width: 100px;
     height: 100px;
 }
+
+.menu {
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+}
+
+/* ===== SLIDER ===== */
 .divs1 {
     width: 100%;
-    height: 250px;
-    background-color: rgb(0, 0, 0);
-    border-radius: 10px;
-    position: relative;
+    max-width: 100%;
+    height: 220px;
+    background-color: #000;
     overflow: hidden;
+    border-radius: 15px;
+    margin: 10px auto;
+    box-sizing: border-box;
 }
 
 .slider {
@@ -36,24 +52,55 @@ body{
 }
 
 .slide {
-    width: 100%;
-    flex-shrink: 0;
+    min-width: 100%; /* ✅ garantiza que no se desborde */
+    height: 100%;
 }
 
 .img {
-    width: 500px;
-    height: 250px;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 .img:hover {
-    transform: scale(1.02);
+    transform: scale(1.03);
 }
 
+/* ===== FOOTER ===== */
 .footer {
     width: 100%;
-    height: 225px;
-    border-radius: 20px;
     background-color: black;
+    padding: 15px;
+    text-align: center;
+    border-radius: 15px 15px 0 0;
+    font-size: 0.9rem;
+    box-sizing: border-box;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (min-width: 768px) {
+    .divs1 {
+        height: 350px;
+    }
+
+    .imgEscudo {
+        width: 150px;
+        height: 150px;
+    }
+
+    .menu {
+        font-size: 2.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .divs1 {
+        height: 450px;
+    }
+
+    .imgEscudo {
+        width: 100px;
+        height: 100px;
+    }
 }
