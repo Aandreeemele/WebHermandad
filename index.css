@@ -23,8 +23,8 @@ html, body {
 }
 
 .imgEscudo {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
 }
 
 .menu {
@@ -34,19 +34,32 @@ html, body {
 }
 
 /* ===== MENU DESPLEGABLE ===== */
+/* ===== MENU DESPLEGABLE MEJORADO ===== */
 .navMenu {
-    display: none; 
+    opacity: 0;
+    transform: translateY(-20px);
     position: absolute;
-    top: 70px; 
+    top: 70px;
     right: 5px;
-    background-color: #111111cd;
-    border-radius: 10px;
-    padding: 15px;
+    background-color: rgba(17, 17, 17, 0.95);
+    border-radius: 15px;
+    padding: 20px;
     z-index: 10;
-    width: 200px;
-    height: 300px;
+    width: 220px;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
 }
 
+/* Estado activo al hacer click */
+.navMenu.active {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 500px; /* suficiente para mostrar todos los items */
+}
+
+/* Lista de items */
 .navMenu ul {
     list-style: none;
     margin: 0;
@@ -54,19 +67,24 @@ html, body {
 }
 
 .navMenu li {
-    margin: 10px 0;
+    margin: 12px 0;
 }
 
 .navMenu a {
     text-decoration: none;
     color: white;
-    font-size: 1rem;
-    transition: color 0.3s;
+    font-size: 1.1rem;
+    display: block;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.2s;
 }
 
 .navMenu a:hover {
-    color: #ffcc00; /* amarillo al pasar el mouse */
+    background-color: #ffcc00;
+    color: black;
 }
+
 
 /* ===== SLIDER ===== */
 .divs1 {
