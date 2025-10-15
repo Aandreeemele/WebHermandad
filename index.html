@@ -10,60 +10,106 @@
     <header class="header">
         <img src="./assets/escudo.png" alt="Escudo" class="imgEscudo">    
         <div class="menu" id="menuBtn">☰</div>
-        <!-- 🔽 Menú desplegable -->
+    
+        <!-- Menú lateral off-canvas -->
         <nav class="navMenu" id="navMenu">
+            <div class="closeBtn" id="closeBtn">×</div>
             <ul>
                 <li><a href="#">Inicio</a></li>
                 <li><a href="#">Historia</a></li>
                 <li><a href="#">Imágenes</a></li>
-                <li><a href="#">Devotos</a></li>
+                <li><a href="./dashboard/devotos/devotos.html">Devotos</a></li>
             </ul>
         </nav>
     </header>
-
+    
     <main>
-        <div class="divs1">
-            <div class="slider" id="slider">
-                <div class="slide"><img src="./assets/señorSepultado.jpeg" alt="Imagen 1" class="img"></div>
-                <div class="slide"><img src="./assets/Aposento.jpeg" alt="Imagen 2" class="img"></div>
-                <div class="slide"><img src="./assets/SeñorSepultado1.jpeg" alt="Imagen 3" class="img"></div>
-                <div class="slide"><img src="./assets/aposento2.jpeg" alt="Imagen 4" class="img"></div>
-            </div>
+        <div class="sliderContainer">
+            <div class="slide"><img src="./assets/señorSepultado.jpeg" alt="Imagen 1"></div>
+            <div class="slide"><img src="./assets/Aposento.jpeg" alt="Imagen 2"></div>
+            <div class="slide"><img src="./assets/SeñorSepultado1.jpeg" alt="Imagen 3"></div>
+            <div class="slide"><img src="./assets/aposento2.jpeg" alt="Imagen 4"></div>
+    
+            <button class="prev">&#10094;</button>
+            <button class="next">&#10095;</button>
         </div>
     </main>
-
+    
+    
     <footer class="footer">
         <p>Hermandad Jesús del Aposento © 2025</p>
     </footer>
 
     <script>
-        // ===== SLIDER =====
-        let index = 0;
-        const slider = document.getElementById("slider");
-        const totalSlides = document.querySelectorAll(".slide").length;
-    
+        // ===== SLIDER =====    
         function moveSlide() {
             index = (index + 1) % totalSlides;
             slider.style.transform = `translateX(-${index * 100}%)`;
         }
         setInterval(moveSlide, 10000);
     
-        // ===== MENU DESPLEGABLE MEJORADO =====
+
         const menuBtn = document.getElementById("menuBtn");
         const navMenu = document.getElementById("navMenu");
-    
-        // Toggle del menú al hacer click en el ícono
-        menuBtn.addEventListener("click", (e) => {
-            e.stopPropagation(); // Evita que se cierre inmediatamente
-            navMenu.classList.toggle("active");
-        });
-    
-        // Cerrar el menú al hacer click fuera de él
-        document.addEventListener("click", (e) => {
-            if (!navMenu.contains(e.target) && navMenu.classList.contains("active")) {
-                navMenu.classList.remove("active");
-            }
-        });
+const closeBtn = document.getElementById("closeBtn");
+
+// Abrir menú
+menuBtn.addEventListener("click", () => {
+    navMenu.classList.add("active");
+});
+
+// Cerrar menú con X
+closeBtn.addEventListener("click", () => {
+    navMenu.classList.remove("active");
+});
+
+// Cerrar menú al hacer click fuera
+document.addEventListener("click", (e) => {
+    if (!navMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+        navMenu.classList.remove("active");
+    }
+});
+
+
+// ===== SLIDER =====
+let slideIndex = 0;
+const slides = document.querySelectorAll(".slide");
+const totalSlides = slides.length;
+
+function showSlide(index) {
+    slides.forEach((slide, i) => {
+        slide.style.display = i === index ? "block" : "none";
+    });
+}
+
+function nextSlide() {
+    slideIndex = (slideIndex + 1) % totalSlides;
+    showSlide(slideIndex);
+}
+
+function prevSlide() {
+    slideIndex = (slideIndex - 1 + totalSlides) % totalSlides;
+    showSlide(slideIndex);
+}
+
+// Mostrar la primera imagen
+showSlide(slideIndex);
+
+// Cambiar automáticamente cada 3 segundos
+let slideInterval = setInterval(nextSlide, 3000);
+
+// Botones
+document.querySelector(".next").addEventListener("click", () => {
+    nextSlide();
+    clearInterval(slideInterval);
+    slideInterval = setInterval(nextSlide, 3000);
+});
+
+document.querySelector(".prev").addEventListener("click", () => {
+    prevSlide();
+    clearInterval(slideInterval);
+    slideInterval = setInterval(nextSlide, 3000);
+});
     </script>
     
 </body>

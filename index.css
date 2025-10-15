@@ -1,13 +1,11 @@
 /* ===== GENERAL ===== */
 html, body {
-    background-color: black;
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
     color: white;
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden; /* 🚫 elimina scroll horizontal */
+    background-color: black;
+    overflow-x: hidden;
 }
 
 /* ===== HEADER ===== */
@@ -15,146 +13,131 @@ html, body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
+    padding: 15px 20px;
     background-color: #000;
-    border-radius: 0 0 15px 15px;
-    box-sizing: border-box; /* ✅ evita que el padding empuje el ancho */
     position: relative;
+    z-index: 100;
 }
 
 .imgEscudo {
-    width: 150px;
-    height: 150px;
+    width: 175px;
+    height: 175px;
 }
 
 .menu {
-    font-size: 2rem;
-    color: white;
+    font-size: 2.5rem;
     cursor: pointer;
 }
 
-/* ===== MENU DESPLEGABLE ===== */
-/* ===== MENU DESPLEGABLE MEJORADO ===== */
+/* ===== MENU LATERAL OFF-CANVAS ===== */
 .navMenu {
-    opacity: 0;
-    transform: translateY(-20px);
-    position: absolute;
-    top: 70px;
-    right: 5px;
-    background-color: rgba(17, 17, 17, 0.95);
-    border-radius: 15px;
-    padding: 20px;
-    z-index: 10;
-    width: 220px;
-    max-height: 0;
-    overflow: hidden;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 280px;
+    height: 100%;
+    background-color: rgba(0,0,0,0.97);
+    padding: 40px 20px;
+    box-shadow: -5px 0 25px rgba(0,0,0,0.7);
+    display: flex;
+    flex-direction: column;
+    transition: right 0.4s ease;
+    z-index: 200;
 }
 
-/* Estado activo al hacer click */
 .navMenu.active {
-    opacity: 1;
-    transform: translateY(0);
-    max-height: 500px; /* suficiente para mostrar todos los items */
+    right: 0;
 }
 
-/* Lista de items */
+.navMenu .closeBtn {
+    align-self: flex-end;
+    font-size: 2rem;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
 .navMenu ul {
     list-style: none;
-    margin: 0;
     padding: 0;
-}
-
-.navMenu li {
-    margin: 12px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .navMenu a {
-    text-decoration: none;
     color: white;
-    font-size: 1.1rem;
-    display: block;
-    padding: 8px 12px;
-    border-radius: 8px;
-    transition: all 0.2s;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: all 0.3s;
 }
 
 .navMenu a:hover {
-    background-color: #ffcc00;
-    color: black;
+    color: #ffcc00;
 }
-
 
 /* ===== SLIDER ===== */
-.divs1 {
-    width: 100%;
-    max-width: 100%;
-    height: 220px;
-    background-color: #000;
+.sliderContainer {
+    position: relative;
+    width: 95%;
+    max-width: 1200px;
+    margin: 20px auto;
     overflow: hidden;
     border-radius: 15px;
-    margin: 10px auto;
-    box-sizing: border-box;
-}
-
-.slider {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    transition: transform 0.8s ease-in-out;
 }
 
 .slide {
-    min-width: 100%; /* ✅ garantiza que no se desborde */
-    height: 100%;
+    display: none;
+    width: 100%;
 }
 
-.img {
+.slide img {
     width: 100%;
-    height: 100%;
+    height: 500px;
     object-fit: cover;
+    border-radius: 15px;
     transition: transform 0.3s ease;
 }
 
-.img:hover {
-    transform: scale(1.03);
+.slide img:hover {
+    transform: scale(1.05);
 }
 
-/* ===== FOOTER ===== */
+/* Botones */
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0,0,0,0.5);
+    border: none;
+    color: white;
+    font-size: 2rem;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    z-index: 10;
+}
+
+.prev { left: 10px; }
+.next { right: 10px; }
+
+/* Footer */
 .footer {
-    width: 100%;
-    background-color: black;
-    padding: 15px;
     text-align: center;
+    padding: 15px;
     border-radius: 15px 15px 0 0;
-    font-size: 0.9rem;
-    box-sizing: border-box;
+    background-color: black;
 }
 
-/* ===== RESPONSIVE ===== */
-@media (min-width: 768px) {
-    .divs1 {
-        height: 350px;
-    }
-
-    .imgEscudo {
-        width: 150px;
-        height: 150px;
-    }
-
-    .menu {
-        font-size: 2.5rem;
+/* Responsivo */
+@media(max-width: 768px){
+    .slide img {
+        height: 300px;
     }
 }
 
-@media (min-width: 1024px) {
-    .divs1 {
-        height: 450px;
-    }
-
-    .imgEscudo {
-        width: 100px;
-        height: 100px;
+@media(min-width: 1024px){
+    .imgEscudo{
+        width: 200px;
+        height: 200px;
     }
 }
