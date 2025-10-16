@@ -10,35 +10,38 @@ html, body {
 
 /* ===== HEADER ===== */
 .header {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr auto;
     align-items: center;
     padding: 15px 20px;
     background-color: #000;
     position: relative;
     z-index: 100;
+    gap: 10px;
 }
 
 .imgEscudo {
-    width: 175px;
-    height: 175px;
+    width: 150px;
+    height: auto;
+    justify-self: start;
 }
 
 .menu {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     cursor: pointer;
+    justify-self: end;
 }
 
-/* ===== MENU LATERAL OFF-CANVAS ===== */
+/* ===== MENU LATERAL (OFF-CANVAS) ===== */
 .navMenu {
     position: fixed;
     top: 0;
     right: -100%;
     width: 280px;
     height: 100%;
-    background-color: rgba(0,0,0,0.97);
+    background-color: rgba(0, 0, 0, 0.97);
     padding: 40px 20px;
-    box-shadow: -5px 0 25px rgba(0,0,0,0.7);
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.7);
     display: flex;
     flex-direction: column;
     transition: right 0.4s ease;
@@ -62,6 +65,7 @@ html, body {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    text-align: center;
 }
 
 .navMenu a {
@@ -83,6 +87,7 @@ html, body {
     margin: 20px auto;
     overflow: hidden;
     border-radius: 15px;
+    box-shadow: 0 0 15px rgba(255,255,255,0.1);
 }
 
 .slide {
@@ -102,42 +107,105 @@ html, body {
     transform: scale(1.05);
 }
 
-/* Botones */
+/* ===== BOTONES SLIDER ===== */
 .prev, .next {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.6);
     border: none;
     color: white;
     font-size: 2rem;
     padding: 10px 15px;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 50%;
     z-index: 10;
+    transition: background 0.3s ease;
+}
+
+.prev:hover, .next:hover {
+    background-color: rgba(255,255,255,0.2);
 }
 
 .prev { left: 10px; }
 .next { right: 10px; }
 
-/* Footer */
+/* ===== FOOTER ===== */
 .footer {
     text-align: center;
     padding: 15px;
     border-radius: 15px 15px 0 0;
     background-color: black;
+    font-size: 0.95rem;
 }
 
-/* Responsivo */
-@media(max-width: 768px){
+/* ===== RESPONSIVE DESIGN ===== */
+
+/* Teléfonos */
+@media (max-width: 600px) {
+    .header {
+        grid-template-columns: 1fr auto;
+        padding: 10px 15px;
+    }
+
+    .imgEscudo {
+        width: 170px;
+    }
+
+    .menu {
+        font-size: 2.8rem;
+    }
+
+    .navMenu {
+        width: 85%;
+        padding: 30px 15px;
+    }
+
+    .navMenu a {
+        font-size: 1rem;
+    }
+
     .slide img {
-        height: 300px;
+        height: 250px;
+        border-radius: 10px;
+    }
+
+    .prev, .next {
+        font-size: 1.5rem;
+        padding: 8px 10px;
+    }
+
+    .footer {
+        font-size: 0.85rem;
     }
 }
 
-@media(min-width: 1024px){
-    .imgEscudo{
+/* Tablets (iPad) */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .imgEscudo {
+        width: 140px;
+    }
+
+    .menu {
+        font-size: 2rem;
+    }
+
+    .slide img {
+        height: 350px;
+    }
+
+    .sliderContainer {
+        width: 90%;
+    }
+}
+
+/* Computadoras grandes */
+@media (min-width: 1025px) {
+    .imgEscudo {
         width: 200px;
-        height: 200px;
+    }
+
+    .slide img {
+        height: 500px;
     }
 }
