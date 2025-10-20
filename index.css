@@ -527,3 +527,20 @@ html, body {
         height: 13rem;
         border-radius: 10%;
       }
+      .imagenes {
+        background-color: #ffffff;
+        color: #111;
+        text-align: center;
+        padding: 60px 20px;
+        height: 100%;
+      }
+      .imgAposento{
+        width: 18rem;
+        height: 13rem;
+        border-radius: 10%;
+      }
+      .imgSepultado{
+        width: 10rem;
+        height: 13rem;
+        border-radius: 10%;
+      }
