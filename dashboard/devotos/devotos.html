@@ -502,11 +502,13 @@
       // esperar un tic para que la imagen QR se renderice
       setTimeout(async () => {
   const el = document.getElementById('comprobante');
-  await new Promise(r => setTimeout(r, 600)); // espera a que cargue el QR y estilos
+  await new Promise(r => setTimeout(r, 800)); // tiempo de espera extra
 
-  // Captura con html2canvas a buena resolución
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  const scaleValue = isSafari ? 2 : 3; // Safari no soporta bien escalas altas
+
   const canvas = await html2canvas(el, {
-    scale: 3,
+    scale: scaleValue,
     useCORS: true,
     backgroundColor: '#ffffff',
     windowWidth: el.scrollWidth,
@@ -516,20 +518,16 @@
   const imgData = canvas.toDataURL('image/jpeg', 1.0);
   const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
 
-  // Obtener dimensiones del PDF
   const pdfWidth = pdf.internal.pageSize.getWidth();
   const pdfHeight = pdf.internal.pageSize.getHeight();
 
-  // Calcular dimensiones del contenido para que encaje completamente en una sola hoja
   const imgProps = pdf.getImageProperties(imgData);
-  const imgWidth = pdfWidth - 20; // margen lateral
+  const imgWidth = pdfWidth - 20;
   const imgHeight = (imgProps.height * imgWidth) / imgProps.width;
 
-  // Si es más alto que la hoja, escalarlo para que entre completo
   const finalHeight = imgHeight > pdfHeight - 20 ? pdfHeight - 20 : imgHeight;
   const finalWidth = (imgProps.width * finalHeight) / imgProps.height;
 
-  // Centrar verticalmente y horizontalmente
   const x = (pdfWidth - finalWidth) / 2;
   const y = (pdfHeight - finalHeight) / 2;
 
@@ -537,24 +535,25 @@
 
   const filename = `comprobanteDevoto_${data.cui}.pdf`;
 
-  // Soporte para iPhone/iPad
-  if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
-    const blob = pdf.output('blob');
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    setTimeout(() => {
-      URL.revokeObjectURL(url);
-      document.body.removeChild(link);
-    }, 1000);
+  // Manejo de descarga seguro para Safari
+  const blob = pdf.output('blob');
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+
+  // En Safari, forzamos la apertura en una nueva pestaña
+  if (isSafari) {
+    window.open(url, '_blank');
   } else {
-    pdf.save(filename);
+    link.click();
   }
 
-  alert('✅ PDF generado correctamente (una sola página completa).');
+  setTimeout(() => {
+    URL.revokeObjectURL(url);
+  }, 2000);
+
+  alert('✅ PDF generado correctamente (compatible con Safari y móvil).');
 }, 600);
 
     });
