@@ -231,6 +231,12 @@
                 <input id="telefono" type="tel" placeholder="">
               </div>
             </div>
+            <!-- Dentro de devotoForm, después de teléfono -->
+<div>
+  <label>Correo electrónico</label>
+  <input id="correo" type="email" placeholder="ejemplo@correo.com">
+</div>
+
 
             <div style="height:8px"></div>
 
@@ -338,6 +344,8 @@
               <tr><td class="label">Apellidos</td><td class="value" id="tdApellidos"></td></tr>
               <tr><td class="label">Fecha Nacimiento</td><td class="value" id="tdFn"></td></tr>
               <tr><td class="label">Teléfono</td><td class="value" id="tdTel"></td></tr>
+              <tr><td class="label">Correo</td><td class="value" id="tdCorreo"></td></tr>
+
               <tr><td class="label">Dirección</td><td class="value" id="tdDir"></td></tr>
             </table>
           </div>
@@ -409,6 +417,8 @@
     const tdApellidos = document.getElementById('tdApellidos');
     const tdFn = document.getElementById('tdFn');
     const tdTel = document.getElementById('tdTel');
+    const correoEl = document.getElementById('correo');
+const tdCorreo = document.getElementById('tdCorreo');
     const tdDir = document.getElementById('tdDir');
     const cuiGrande = document.getElementById('cuiGrande');
     const qrComprobante = document.getElementById('qrComprobante');
@@ -479,16 +489,17 @@
     // Submit form -> generar comprobante y PDF
     devotoForm.addEventListener('submit', async (e)=>{
       e.preventDefault();
-      const data = {
-        cui: onlyDigits(cuiForm.value),
-        nombres: nombresEl.value.trim(),
-        apellidos: apellidosEl.value.trim(),
-        telefono: telefonoEl.value.trim(),
-        direccion: direccionEl.value.trim(),
-        fn: fnEl.value,
-        nota: notaEl.value.trim(),
-        sexo: (document.querySelector('input[name="sexo"]:checked')||{}).value || ''
-      };
+      const data={
+  cui: onlyDigits(cuiForm.value),
+  nombres: nombresEl.value.trim(),
+  apellidos: apellidosEl.value.trim(),
+  telefono: telefonoEl.value.trim(),
+  correo: correoEl.value.trim(),
+  direccion: direccionEl.value.trim(),
+  fn: fnEl.value,
+  nota: notaEl.value.trim(),
+  sexo: (document.querySelector('input[name="sexo"]:checked')||{}).value||''
+};
 
       if(!data.nombres || !data.apellidos || !data.cui){
         alert('Complete los campos obligatorios: nombres, apellidos y CUI/DPI.');
@@ -501,6 +512,7 @@
       tdApellidos.textContent = data.apellidos;
       tdFn.textContent = data.fn || '-';
       tdTel.textContent = data.telefono || '-';
+      tdCorreo.textContent = data.correo || '-';
       tdDir.textContent = data.direccion || '-';
       cuiGrande.textContent = data.cui;
       fechaComprobante.textContent = new Date().toLocaleDateString();
@@ -511,15 +523,16 @@
 
       // crear contenido de QR (texto legible; puedes cambiar a JSON si quieres)
       const qrContent = [
-        `CUI: ${data.cui}`,
-        `Nombres: ${data.nombres}`,
-        `Apellidos: ${data.apellidos}`,
-        `Fecha nacimiento: ${data.fn || '-'}`,
-        `Teléfono: ${data.telefono || '-'}`,
-        `Dirección: ${data.direccion || '-'}`,
-        `Sexo: ${data.sexo || '-'}`,
-        `Contraseña: ${pass}`
-      ].join('\\n');
+  `CUI: ${data.cui}`,
+  `Nombres: ${data.nombres}`,
+  `Apellidos: ${data.apellidos}`,
+  `Fecha nacimiento: ${data.fn || '-'}`,
+  `Teléfono: ${data.telefono || '-'}`,
+  `Correo: ${data.correo || '-'}`,
+  `Dirección: ${data.direccion || '-'}`,
+  `Sexo: ${data.sexo || '-'}`,
+  `Contraseña: ${pass}`
+].join('\n');
 
       // generar QR (DataURL)
       try{
