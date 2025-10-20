@@ -19,23 +19,40 @@
         <li><a href="../activities/activities.html">Historia</a></li>
         <li><a href="../agenda/agenda.html">Imágenes</a></li>
         <li><a href="../devotos/devotos.html">Devotos</a></li>
-        <li><a href="#">Iniciar sesión</a></li>
+        <li><a href="#">Comprar turno</a></li>
       </ul>
     </nav>
   </header>
-  <section class="iniciarS">
-    <p class="x15">Usuario</p>
-    <div class="usuario"></div>
-    <p class="x16">Contraseña</p>
-    <div class="contraseña"></div>
-    
-  </section>
+  <!-- ===== SECCIÓN PRINCIPAL ===== -->
+  <div class="content" id="inicio">
+    <img src="../../assets/Aposento.jpeg" alt="Logo" class="img1">
+    <p class="Titulo">¡𝙸𝚗𝚜𝚌𝚛𝚒𝚙𝚌𝚒𝚘𝚗𝚎𝚜 𝟸𝟶𝟸𝟼!</p>
+    <p class="Subtitulo">¡𝙱𝚒𝚎𝚗𝚟𝚎𝚗𝚒𝚍𝚘!</p>
+    <button class="btn-inscribirme" onclick="mostrarInscripcion()">𝙸𝚗𝚜𝚌𝚛𝚒𝚋𝚒𝚛𝚖𝚎</button>
+  </div>
+
+  <!-- ===== SECCIÓN DE INSCRIPCIÓN ===== -->
+  <div class="div-content" id="inscripcion" style="display:none;">
+    <div class="imagenes-contenedor">
+      <img src="images/icono.png" alt="Icono" class="img-icono">
+      <p class="descripcion">𝙷𝚎𝚛𝚖𝚊𝚗𝚍𝚊𝚍 𝚍𝚎 𝙹𝚎𝚜𝚞𝚜 𝚍𝚎𝚕 𝙰𝚙𝚘𝚜𝚎𝚗𝚝𝚘 𝚢 𝚂𝚎ñ𝚘𝚛 𝚂𝚎𝚙𝚞𝚕𝚝𝚊𝚍𝚘</p>
+      <img src="images/fondo.png" alt="Fondo" class="img2">
+    </div>
+
+    <div class="contenedor-botones">
+      <button class="btn-inscripcion">𝙸𝚗𝚜𝚌𝚛𝚒𝚙𝚌𝚒ó𝚗 𝟺𝚝𝚘 𝙳𝚘𝚖𝚒𝚗𝚐𝚘</button>
+      <button class="btn-inscripcion">𝙸𝚗𝚜𝚌𝚛𝚒𝚙𝚌𝚒ó𝚗 𝙼𝚒é𝚛𝚌𝚘𝚕𝚎𝚜 𝚂𝚊𝚗𝚝𝚘</button>
+      <button class="btn-inscripcion">𝙸𝚗𝚜𝚌𝚛𝚒𝚙𝚌𝚒ó𝚗 𝚂𝚊𝚗𝚝𝚘 𝚅𝚒𝚊𝚌𝚛𝚞𝚌𝚒𝚜</button>
+      <button class="btn-inscripcion">𝙸𝚗𝚜𝚌𝚛𝚒𝚙𝚌𝚒ó𝚗 𝚂𝚊𝚗𝚝𝚘 𝙴𝚗𝚝𝚒𝚎𝚛𝚛𝚘</button>
+    </div>
+  </div>
   <footer class="footer">
     <p>Hermandad Jesús del Aposento © 2025</p>
-   </footer>
+  </footer>
+
   <script>
-     // ===== MENÚ =====
-     const menuBtn = document.getElementById("menuBtn");
+    // ===== MENÚ =====
+    const menuBtn = document.getElementById("menuBtn");
     const navMenu = document.getElementById("navMenu");
     const closeBtn = document.getElementById("closeBtn");
 
@@ -46,4 +63,41 @@
         navMenu.classList.remove("active");
       }
     });
+
+    // ===== Inscripción =====
+    function mostrarInscripcion() {
+      document.getElementById('inicio').style.display = 'none';
+      document.getElementById('inscripcion').style.display = 'block';
+    }
+
+    const botones = document.querySelectorAll('.btn-inscripcion');
+    botones.forEach(btn => {
+      btn.addEventListener('click', () => {
+        alert('Muy pronto disponible');
+      });
+    });
+
+    // ===== FUNCIÓN DE LOGIN =====
+    const loginForm = document.getElementById("loginForm");
+    const errorMsg = document.getElementById("errorMsg");
+
+    loginForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const usuario = document.getElementById("usuario").value.trim();
+      const contraseña = document.getElementById("contraseña").value.trim();
+
+      // Ejemplo: Usuario de prueba
+      const usuarioValido = "admin";
+      const contraseñaValida = "12345";
+
+      if (usuario === usuarioValido && contraseña === contraseñaValida) {
+        localStorage.setItem("usuario", usuario);
+        window.location.href = "../panel/panel.html"; // Redirigir si es correcto
+      } else {
+        errorMsg.style.display = "block";
+      }
+    });
   </script>
+</body>
+</html>
