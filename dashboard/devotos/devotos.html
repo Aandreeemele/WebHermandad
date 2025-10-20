@@ -502,64 +502,42 @@
       // esperar un tic para que la imagen QR se renderice
       setTimeout(async () => {
   const el = document.getElementById('comprobante');
-  
-  // Esperar un pequeño retardo extra para asegurar el renderizado del QR
-  await new Promise(r => setTimeout(r, 400));
+  await new Promise(r => setTimeout(r, 500)); // espera para que el QR termine de dibujarse
 
-  // Renderizamos con html2canvas con más tolerancia para Safari iOS
+  // Capturamos con html2canvas a buena resolución
   const canvas = await html2canvas(el, {
-    scale: 2,
+    scale: 3,
     useCORS: true,
     backgroundColor: '#ffffff',
-    logging: false,
-    scrollX: 0,
-    scrollY: -window.scrollY,
+    windowWidth: el.scrollWidth,
+    windowHeight: el.scrollHeight
   });
 
   const imgData = canvas.toDataURL('image/jpeg', 1.0);
-  const pdf = new jsPDF({
-    orientation: 'portrait',
-    unit: 'mm',
-    format: 'a4',
-  });
+  const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
 
-  const pdfW = pdf.internal.pageSize.getWidth();
-  const pdfH = pdf.internal.pageSize.getHeight();
-
-  // Calcular tamaño de imagen proporcional
+  const pdfWidth = pdf.internal.pageSize.getWidth();
+  const pdfHeight = pdf.internal.pageSize.getHeight();
   const imgProps = pdf.getImageProperties(imgData);
-  const imgW = pdfW - 20;
-  const imgH = (imgProps.height * imgW) / imgProps.width;
+  const imgHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
-  // Si el contenido es más alto que la página A4, lo dividimos automáticamente
-  let positionY = 10;
-  if (imgH > pdfH - 20) {
-    const pageHeight = pdfH - 20;
-    let remainingHeight = imgH;
+  let position = 0;
+  let heightLeft = imgHeight;
 
-    const pageCanvas = document.createElement('canvas');
-    const ctx = pageCanvas.getContext('2d');
-    const pageHeightPx = (pageHeight * canvas.height) / imgH;
-    const pageWidthPx = canvas.width;
-
-    while (remainingHeight > 0) {
-      const cutHeight = Math.min(pageHeightPx, remainingHeight);
-      pageCanvas.width = pageWidthPx;
-      pageCanvas.height = cutHeight;
-      ctx.drawImage(canvas, 0, canvas.height - remainingHeight, pageWidthPx, cutHeight, 0, 0, pageWidthPx, cutHeight);
-      const imgChunk = pageCanvas.toDataURL('image/jpeg', 1.0);
-      pdf.addImage(imgChunk, 'JPEG', 10, 10, imgW, (cutHeight * imgW) / pageWidthPx);
-      remainingHeight -= cutHeight;
-      if (remainingHeight > 0) pdf.addPage();
+  // Añadimos todas las páginas necesarias automáticamente
+  while (heightLeft > 0) {
+    pdf.addImage(imgData, 'JPEG', 0, position, pdfWidth, imgHeight);
+    heightLeft -= pdfHeight;
+    if (heightLeft > 0) {
+      pdf.addPage();
+      position = -pdfHeight * (imgProps.width / pdfWidth);
     }
-  } else {
-    pdf.addImage(imgData, 'JPEG', 10, positionY, imgW, imgH);
   }
 
   const filename = `comprobanteDevoto_${data.cui}.pdf`;
-
-  // ✅ Método especial para Safari iOS
-  if (navigator.userAgent.match(/iPhone|iPad|iPod/)) {
+  
+  // Manejo especial para iPhone/iPad
+  if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
     const blob = pdf.output('blob');
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
@@ -575,10 +553,7 @@
     pdf.save(filename);
   }
 
-  alert('PDF generado correctamente. Si usas iPhone, se abrirá en vista previa antes de guardarlo.');
-
-  // Ocultar comprobante si deseas
-  // comprobanteContainer.style.display = 'none';
+  alert('PDF generado correctamente. Se guardará completo sin cortes.');
 }, 600);
 
     });
