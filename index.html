@@ -1,179 +1,135 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="index.css">
-    <title>Hermandad Jesús del Aposento</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="index.css">
+  <title>Hermandad Jesús del Aposento</title>
 </head>
 <body>
-    <header class="header">
-        <img src="./assets/escudo.png" alt="Escudo" class="imgEscudo">    
-        <div class="menu" id="menuBtn">☰</div>
-    
-        <!-- Menú lateral off-canvas -->
-        <nav class="navMenu" id="navMenu">
-            <div class="closeBtn" id="closeBtn">×</div>
-            <ul>
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Historia</a></li>
-                <li><a href="#">Imágenes</a></li>
-                <li><a href="./dashboard/devotos/devotos.html">Devotos</a></li>
-            </ul>
-        </nav>
-    </header>
-    
-    <main>
-        <div class="sliderContainer">
-            <div class="slide"><img src="./assets/señorSepultado.jpeg" alt="Imagen 1"></div>
-            <div class="slide"><img src="./assets/Aposento.jpeg" alt="Imagen 2"></div>
-            <div class="slide"><img src="./assets/SeñorSepultado1.jpeg" alt="Imagen 3"></div>
-            <div class="slide"><img src="./assets/aposento2.jpeg" alt="Imagen 4"></div>
-    
-            <button class="prev">&#10094;</button>
-            <button class="next">&#10095;</button>
-        </div>
-    </main>
-    
-    <div class="MarchasOficiales">
-        <p class="tituloMarchas">𝙼𝚊𝚛𝚌𝚑𝚊𝚜 𝙾𝚏𝚒𝚌𝚒𝚊𝚕𝚎𝚜</p>
-        <div class="Marcha1">
-            𝙹𝚎𝚜ú𝚜 𝚍𝚎𝚕 𝙰𝚙𝚘𝚜𝚎𝚗𝚝𝚘
-            <div class="marcha1"></div>
-        </div>
-        <div class="Marcha2">
-            𝚂𝚎ñ𝚘𝚛 𝚂𝚎𝚙𝚞𝚕𝚝𝚊𝚍𝚘 
-            <div class="marcha2"></div>
-        </div>
+  <header class="header">
+    <img src="./assets/escudo.png" alt="Escudo" class="imgEscudo">    
+    <div class="menu" id="menuBtn">☰</div>
+
+    <!-- Menú lateral -->
+    <nav class="navMenu" id="navMenu">
+      <div class="closeBtn" id="closeBtn">×</div>
+      <ul>
+        <li><a href="#">Inicio</a></li>
+        <li><a href="#">Historia</a></li>
+        <li><a href="#">Imágenes</a></li>
+        <li><a href="./dashboard/devotos/devotos.html">Devotos</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="sliderContainer">
+      <div class="slide"><img src="./assets/señorSepultado.jpeg" alt="Imagen 1"></div>
+      <div class="slide"><img src="./assets/Aposento.jpeg" alt="Imagen 2"></div>
+      <div class="slide"><img src="./assets/SeñorSepultado1.jpeg" alt="Imagen 3"></div>
+      <div class="slide"><img src="./assets/aposento2.jpeg" alt="Imagen 4"></div>
+      <button class="prev">&#10094;</button>
+      <button class="next">&#10095;</button>
     </div>
-      <!-- ===== CALENDARIO INTERACTIVO ===== -->
+  </main>
+
+  <div class="MarchasOficiales">
+    <p class="tituloMarchas">𝙼𝚊𝚛𝚌𝚑𝚊𝚜 𝙾𝚏𝚒𝚌𝚒𝚊𝚕𝚎𝚜</p>
+    <div class="Marcha1">𝙹𝚎𝚜ú𝚜 𝚍𝚎𝚕 𝙰𝚙𝚘𝚜𝚎𝚗𝚝𝚘<div class="marcha1"></div></div>
+    <div class="Marcha2">𝚂𝚎ñ𝚘𝚛 𝚂𝚎𝚙𝚞𝚕𝚝𝚊𝚍𝚘<div class="marcha2"></div></div>
+  </div>
+
+  <!-- ===== CALENDARIO ===== -->
   <section class="calendario-container">
     <h1 class="titulo">Agenda Mensual</h1>
     <div class="linea"></div>
     <p class="descripcion">
-      Programa mensual de actividades programadas de la Hermandad Jesús del Aposento y Señor Sepultado, 
-      para ver más detalle dé click sobre la actividad de su interés.
+      Programa mensual de actividades programadas de la Hermandad Jesús del Aposento y Señor Sepultado.  
+      Para ver más detalle dé click sobre la actividad de su interés.
     </p>
+
     <a href="#" class="ver-actividades">Ver todas las actividades →</a>
 
     <div class="encabezado-mes">
-      <h2 id="nombreMes">Noviembre</h2>
+      <h2 id="nombreMes">Noviembre 2025</h2>
     </div>
 
-    <div id="contenedorMeses">
-      <!-- Los 12 meses generados por JS -->
-    </div>
+    <div id="contenedorMeses"></div>
   </section>
-    <div class="Ubicacion">Ubicacion</div>
-    <footer class="footer">
-        <p>Hermandad Jesús del Aposento © 2025</p>
-    </footer>
 
-    <script>
-        // ===== SLIDER =====    
-        function moveSlide() {
-            index = (index + 1) % totalSlides;
-            slider.style.transform = `translateX(-${index * 100}%)`;
-        }
-        setInterval(moveSlide, 10000);
-    
+  <div class="Ubicacion">Ubicación</div>
+  <footer class="footer">
+    <p>Hermandad Jesús del Aposento © 2025</p>
+  </footer>
 
-        const menuBtn = document.getElementById("menuBtn");
-        const navMenu = document.getElementById("navMenu");
-const closeBtn = document.getElementById("closeBtn");
+  <script>
+    // ===== MENÚ =====
+    const menuBtn = document.getElementById("menuBtn");
+    const navMenu = document.getElementById("navMenu");
+    const closeBtn = document.getElementById("closeBtn");
 
-// Abrir menú
-menuBtn.addEventListener("click", () => {
-    navMenu.classList.add("active");
-});
-
-// Cerrar menú con X
-closeBtn.addEventListener("click", () => {
-    navMenu.classList.remove("active");
-});
-
-// Cerrar menú al hacer click fuera
-document.addEventListener("click", (e) => {
-    if (!navMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+    menuBtn.addEventListener("click", () => navMenu.classList.add("active"));
+    closeBtn.addEventListener("click", () => navMenu.classList.remove("active"));
+    document.addEventListener("click", (e) => {
+      if (!navMenu.contains(e.target) && !menuBtn.contains(e.target)) {
         navMenu.classList.remove("active");
-    }
-});
+      }
+    });
 
-
-// ===== SLIDER =====
-let slideIndex = 0;
-const slides = document.querySelectorAll(".slide");
-const totalSlides = slides.length;
-
-function showSlide(index) {
-    slides.forEach((slide, i) => {
+    // ===== SLIDER =====
+    let slideIndex = 0;
+    const slides = document.querySelectorAll(".slide");
+    const totalSlides = slides.length;
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
         slide.style.display = i === index ? "block" : "none";
-    });
-}
-
-function nextSlide() {
-    slideIndex = (slideIndex + 1) % totalSlides;
-    showSlide(slideIndex);
-}
-
-function prevSlide() {
-    slideIndex = (slideIndex - 1 + totalSlides) % totalSlides;
-    showSlide(slideIndex);
-}
-
-// Mostrar la primera imagen
-showSlide(slideIndex);
-
-// Cambiar automáticamente cada 10 segundos
-let slideInterval = setInterval(nextSlide, 10000);
-
-// Botones
-document.querySelector(".next").addEventListener("click", () => {
-    nextSlide();
-    clearInterval(slideInterval);
-    slideInterval = setInterval(nextSlide, 3000);
-});
-
-document.querySelector(".prev").addEventListener("click", () => {
-    prevSlide();
-    clearInterval(slideInterval);
-    slideInterval = setInterval(nextSlide, 3000);
-});
-
-const meses = [
-      "Noviembre"
-    ];
-    const contenedor = document.getElementById("contenedorMeses");
-    const nombreMes = document.getElementById("nombreMes");
-
-    meses.forEach((mes, i) => {
-      const seccion = document.createElement("section");
-      seccion.classList.add("mes");
-      if (i === 0) seccion.classList.add("active");
-      seccion.innerHTML = `
-        <div class="calendario">
-          <div class="dia encabezado">Lun.</div><div class="dia encabezado">Mar.</div>
-          <div class="dia encabezado">Mié.</div><div class="dia encabezado">Jue.</div>
-          <div class="dia encabezado">Vie.</div><div class="dia encabezado">Sáb.</div>
-          <div class="dia encabezado">Dom.</div>
-          ${Array.from({ length: 35 }, (_, j) => `<div class="dia">${j = 30 ? j-4 : ""}</div>`).join("")}
-        </div>
-      `;
-      contenedor.appendChild(seccion);
-    });
-
-    let mesActual = 0;
-    document.querySelector(".btn-next").addEventListener("click", () => cambiarMes(1));
-    document.querySelector(".btn-prev").addEventListener("click", () => cambiarMes(-1));
-
-    function cambiarMes(dir) {
-      const mesesDOM = document.querySelectorAll(".mes");
-      mesesDOM[mesActual].classList.remove("active");
-      mesActual = (mesActual + dir + 1) % 1;
-      mesesDOM[mesActual].classList.add("active");
-      nombreMes.textContent = `${meses[mesActual]} 2025`;
+      });
     }
-    </script>
-    
+    function nextSlide() {
+      slideIndex = (slideIndex + 1) % totalSlides;
+      showSlide(slideIndex);
+    }
+    function prevSlide() {
+      slideIndex = (slideIndex - 1 + totalSlides) % totalSlides;
+      showSlide(slideIndex);
+    }
+    showSlide(slideIndex);
+    let slideInterval = setInterval(nextSlide, 10000);
+    document.querySelector(".next").addEventListener("click", () => {
+      nextSlide();
+      clearInterval(slideInterval);
+      slideInterval = setInterval(nextSlide, 10000);
+    });
+    document.querySelector(".prev").addEventListener("click", () => {
+      prevSlide();
+      clearInterval(slideInterval);
+      slideInterval = setInterval(nextSlide, 10000);
+    });
+
+    // ===== CALENDARIO DE NOVIEMBRE 2025 =====
+    const contenedor = document.getElementById("contenedorMeses");
+    const diasSemana = ["Lun.", "Mar.", "Mié.", "Jue.", "Vie.", "Sáb.", "Dom."];
+
+    // 1 de noviembre de 2025 cae en sábado → posición 6 (si lunes es 1)
+    const primerDia = 6; 
+    const totalDias = 30;
+
+    let calendarioHTML = '<div class="calendario">';
+    diasSemana.forEach(d => calendarioHTML += `<div class="dia encabezado">${d}</div>`);
+
+    // Espacios vacíos antes del 1
+    for (let i = 1; i < primerDia; i++) {
+      calendarioHTML += `<div class="dia vacio"></div>`;
+    }
+
+    // Días del mes
+    for (let d = 1; d <= totalDias; d++) {
+      calendarioHTML += `<div class="dia">${d}</div>`;
+    }
+
+    calendarioHTML += '</div>';
+    contenedor.innerHTML = calendarioHTML;
+  </script>
 </body>
 </html>
