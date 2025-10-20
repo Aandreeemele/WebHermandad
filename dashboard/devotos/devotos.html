@@ -500,39 +500,87 @@
       // mostrar la vista comprobante oculta para renderizar
       comprobanteContainer.style.display = 'block';
       // esperar un tic para que la imagen QR se renderice
-      setTimeout(async ()=>{
-        // capturar el DOM con html2canvas
-        const el = document.getElementById('comprobante');
-        // aumentar escala para mejor resolución
-        const canvas = await html2canvas(el, {scale:2, useCORS:true, backgroundColor: '#ffffff'});
-        const imgData = canvas.toDataURL('image/png');
+      setTimeout(async () => {
+  const el = document.getElementById('comprobante');
+  
+  // Esperar un pequeño retardo extra para asegurar el renderizado del QR
+  await new Promise(r => setTimeout(r, 400));
 
-        // crear PDF con jsPDF
-        const pdf = new jsPDF({unit:'mm', format:'a4', orientation:'portrait'});
-        const pdfW = pdf.internal.pageSize.getWidth();
-        const pdfH = pdf.internal.pageSize.getHeight();
+  // Renderizamos con html2canvas con más tolerancia para Safari iOS
+  const canvas = await html2canvas(el, {
+    scale: 2,
+    useCORS: true,
+    backgroundColor: '#ffffff',
+    logging: false,
+    scrollX: 0,
+    scrollY: -window.scrollY,
+  });
 
-        // ajustar la imagen manteniendo la relación
-        const imgProps = pdf.getImageProperties(imgData);
-        const imgW = pdfW - 20; // margen 10mm en cada lado
-        const imgH = (imgProps.height * imgW) / imgProps.width;
+  const imgData = canvas.toDataURL('image/jpeg', 1.0);
+  const pdf = new jsPDF({
+    orientation: 'portrait',
+    unit: 'mm',
+    format: 'a4',
+  });
 
-        pdf.addImage(imgData, 'PNG', 10, 10, imgW, imgH);
-        const filename = `comprobanteDevoto_${data.cui}.pdf`;
-        pdf.save(filename);
+  const pdfW = pdf.internal.pageSize.getWidth();
+  const pdfH = pdf.internal.pageSize.getHeight();
 
-        // habilitar botón descargar QR
-        downloadQrBtn.onclick = ()=> {
-          const link = document.createElement('a');
-          link.href = qrComprobante.src;
-          link.download = `qr_${data.cui}.png`;
-          link.click();
-        };
+  // Calcular tamaño de imagen proporcional
+  const imgProps = pdf.getImageProperties(imgData);
+  const imgW = pdfW - 20;
+  const imgH = (imgProps.height * imgW) / imgProps.width;
 
-        alert('PDF generado y descargado correctamente.');
-        // opcional: ocultar comprobanteContainer otra vez
-        // comprobanteContainer.style.display = 'none';
-      }, 300);
+  // Si el contenido es más alto que la página A4, lo dividimos automáticamente
+  let positionY = 10;
+  if (imgH > pdfH - 20) {
+    const pageHeight = pdfH - 20;
+    let remainingHeight = imgH;
+
+    const pageCanvas = document.createElement('canvas');
+    const ctx = pageCanvas.getContext('2d');
+    const pageHeightPx = (pageHeight * canvas.height) / imgH;
+    const pageWidthPx = canvas.width;
+
+    while (remainingHeight > 0) {
+      const cutHeight = Math.min(pageHeightPx, remainingHeight);
+      pageCanvas.width = pageWidthPx;
+      pageCanvas.height = cutHeight;
+      ctx.drawImage(canvas, 0, canvas.height - remainingHeight, pageWidthPx, cutHeight, 0, 0, pageWidthPx, cutHeight);
+      const imgChunk = pageCanvas.toDataURL('image/jpeg', 1.0);
+      pdf.addImage(imgChunk, 'JPEG', 10, 10, imgW, (cutHeight * imgW) / pageWidthPx);
+      remainingHeight -= cutHeight;
+      if (remainingHeight > 0) pdf.addPage();
+    }
+  } else {
+    pdf.addImage(imgData, 'JPEG', 10, positionY, imgW, imgH);
+  }
+
+  const filename = `comprobanteDevoto_${data.cui}.pdf`;
+
+  // ✅ Método especial para Safari iOS
+  if (navigator.userAgent.match(/iPhone|iPad|iPod/)) {
+    const blob = pdf.output('blob');
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    setTimeout(() => {
+      URL.revokeObjectURL(url);
+      document.body.removeChild(link);
+    }, 1000);
+  } else {
+    pdf.save(filename);
+  }
+
+  alert('PDF generado correctamente. Si usas iPhone, se abrirá en vista previa antes de guardarlo.');
+
+  // Ocultar comprobante si deseas
+  // comprobanteContainer.style.display = 'none';
+}, 600);
+
     });
 
     // Botón descargar QR robusto para móviles
