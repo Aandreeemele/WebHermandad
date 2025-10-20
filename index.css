@@ -130,35 +130,158 @@ html, body {
 .prev { left: 10px; }
 .next { right: 10px; }
 
-.MarchasOficiales{
-    width: 100%;
-    height: 20rem;
-    border: 1px solid white;
-    background-color: white;
-    color: black;
-}
-.tituloMarchas{
-    font-size: 1.4rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-}
-.Marcha1, .Marcha2{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1rem;
-    padding: 2rem;
-}
-.marcha1, .marcha2{
-    width: px;
-    height: 30px;
-    
+/* ===== MARCHAS OFICIALES ===== */
+.marchas-oficiales {
+    background-color: #ffffff;
+    color: #111;
+    text-align: center;
+    padding: 60px 20px;
+  }
+  
+  .titulo-marchas {
+    font-size: 2em;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  
+  .decoracion {
+    width: 60px;
+    height: 3px;
+    background-color: gold;
+    margin: 0 auto 30px auto;
     position: relative;
-    top: 2rem;
-    left: -5rem;
-}
+  }
+  
+  .decoracion::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background-color: gold;
+  }
+  
+  .descripcion-marchas {
+    max-width: 700px;
+    margin: 0 auto 40px auto;
+    color: #777;
+    line-height: 1.6;
+    font-size: 1rem;
+  }
+  
+  .marcha {
+    margin-bottom: 50px;
+  }
+  
+  .marcha h3 {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+  
+  .marcha .subtitulo {
+    font-size: 1rem;
+    margin-bottom: 15px;
+    font-weight: 500;
+  }
+  
+  .marchas-oficiales audio {
+    width: 280px;
+    background-color: black;
+    border-radius: 4px;
+  }
+  
+  /* ===== REDES SOCIALES ===== */
+.redesSociales {
+    background-color: #000000;
+    color: white;
+    text-align: center;
+    padding: 15px 20px;
+  }
+  
+  .redesSociales .titulo {
+    font-size: 2em;
+    margin-bottom: 30px;
+    font-weight: 600;
+  }
+  
+  .iconos-redes {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+  }
+  
+  .red {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  
+  .red img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 50%;
+    padding: 10px;
+    background-color: #fff;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  
+  .red span {
+    margin-top: 10px;
+    font-size: 1rem;
+    color: white;
+    font-weight: 500;
+  }
+  
+  /* Efectos al pasar el cursor */
+  .red:hover img {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px gold;
+  }
+  
+  .red:hover span {
+    color: gold;
+  }
+  
+  .red:hover {
+    transform: translateY(-5px);
+  }
+  
+  /* Colores personalizados para cada red */
+  .facebook img {
+    background-color: #3b5998;
+  }
+  
+  .whatsapp img {
+    background-color: #25d366;
+  }
+  
+  .instagram img {
+    background: radial-gradient(circle at 30% 30%, #f58529, #dd2a7b, #8134af, #515bd4);
+  }
+  
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .iconos-redes {
+      gap: 25px;
+    }
+  
+    .red img {
+      width: 65px;
+      height: 65px;
+    }
+  
+    .redesSociales .titulo {
+      font-size: 1.6em;
+    }
+  }
+  
 .Calendario{
     width: 100%;
     height: 35rem;
@@ -172,7 +295,7 @@ html, body {
 }
 .Ubicacion{
     width: 100%;
-    height: 15rem;
+    height: 30rem;
     border: 1px solid rgb(0, 0, 0);
     background-color: rgb(0, 0, 0);
     color: white;
