@@ -552,13 +552,13 @@ html, body {
         background-color: white;
         color: black;
 
-        display: grid;
-        grid-template-columns: repeat(9, 1fr);
-        grid-template-rows: repeat(9, 1fr);
       }
       .comprarTurnos3{
         grid-column: 1/10;
         grid-row: 9/10;
         height: 28px;
         background-color: #B8860B;
+      }
+      .comprarTurnos22{
+        width: 100%;
       }
