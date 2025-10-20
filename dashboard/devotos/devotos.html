@@ -68,20 +68,49 @@
     }
 
     /* ===== BOTONES DE SEXO ===== */
-.sexo-group {
-  display: flex;
-  gap: 12px;           /* espacio uniforme entre opciones */
-  align-items: center;  /* centra verticalmente el radio y texto */
-  flex-wrap: wrap;      /* se ajusta en pantallas pequeñas */
-  margin-top: 4px;
+    .sexo-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+  margin-top: 10px;
+  width: 100%;
 }
 
 .sexo-group label {
   display: flex;
   align-items: center;
-  gap: 6px;             /* espacio entre el radio y el texto */
-  font-size: 14px;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1.5px solid #ccc;
+  background: #fff;
+  color: #333;
+  font-size: 15px;
+  font-weight: 500;
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sexo-group label:hover {
+  background: #f2f2f2;
+}
+
+.sexo-group input[type="radio"] {
+  display: none;
+}
+
+.sexo-group input[type="radio"]:checked + span {
+  background: #e0e0e0;  /* gris claro */
+  border-color: #999;
+  color: #000;
+}
+
+.sexo-group label span {
+  width: 100%;
+  text-align: center;
+  border-radius: 6px;
+  padding: 6px 0;
+  transition: all 0.2s ease;
 }
 
 /* ===== BOTÓN “No soy de Guatemala” MEJORADO ===== */
@@ -208,9 +237,17 @@
             <div>
                 <label>Sexo</label>
                 <div class="sexo-group">
-                  <label><input type="radio" name="sexo" value="Hombre" checked> Hombre</label>
-                  <label><input type="radio" name="sexo" value="Mujer"> Mujer</label>
+                  <label>
+                    <input type="radio" name="sexo" value="masculino">
+                    <span>Masculino</span>
+                  </label>
+                
+                  <label>
+                    <input type="radio" name="sexo" value="femenino">
+                    <span>Femenino</span>
+                  </label>
                 </div>
+                
               </div>
               
 
