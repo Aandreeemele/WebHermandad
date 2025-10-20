@@ -46,7 +46,24 @@
             <div class="marcha2"></div>
         </div>
     </div>
-    <div class="Calendario">Agenda</div>
+      <!-- ===== CALENDARIO INTERACTIVO ===== -->
+  <section class="calendario-container">
+    <h1 class="titulo">Agenda Mensual</h1>
+    <div class="linea"></div>
+    <p class="descripcion">
+      Programa mensual de actividades programadas de la Hermandad Jesús del Aposento y Señor Sepultado, 
+      para ver más detalle dé click sobre la actividad de su interés.
+    </p>
+    <a href="#" class="ver-actividades">Ver todas las actividades →</a>
+
+    <div class="encabezado-mes">
+      <h2 id="nombreMes">Noviembre</h2>
+    </div>
+
+    <div id="contenedorMeses">
+      <!-- Los 12 meses generados por JS -->
+    </div>
+  </section>
     <div class="Ubicacion">Ubicacion</div>
     <footer class="footer">
         <p>Hermandad Jesús del Aposento © 2025</p>
@@ -107,7 +124,7 @@ function prevSlide() {
 // Mostrar la primera imagen
 showSlide(slideIndex);
 
-// Cambiar automáticamente cada 3 segundos
+// Cambiar automáticamente cada 10 segundos
 let slideInterval = setInterval(nextSlide, 10000);
 
 // Botones
@@ -122,6 +139,40 @@ document.querySelector(".prev").addEventListener("click", () => {
     clearInterval(slideInterval);
     slideInterval = setInterval(nextSlide, 3000);
 });
+
+const meses = [
+      "Noviembre"
+    ];
+    const contenedor = document.getElementById("contenedorMeses");
+    const nombreMes = document.getElementById("nombreMes");
+
+    meses.forEach((mes, i) => {
+      const seccion = document.createElement("section");
+      seccion.classList.add("mes");
+      if (i === 0) seccion.classList.add("active");
+      seccion.innerHTML = `
+        <div class="calendario">
+          <div class="dia encabezado">Lun.</div><div class="dia encabezado">Mar.</div>
+          <div class="dia encabezado">Mié.</div><div class="dia encabezado">Jue.</div>
+          <div class="dia encabezado">Vie.</div><div class="dia encabezado">Sáb.</div>
+          <div class="dia encabezado">Dom.</div>
+          ${Array.from({ length: 35 }, (_, j) => `<div class="dia">${j = 30 ? j-4 : ""}</div>`).join("")}
+        </div>
+      `;
+      contenedor.appendChild(seccion);
+    });
+
+    let mesActual = 0;
+    document.querySelector(".btn-next").addEventListener("click", () => cambiarMes(1));
+    document.querySelector(".btn-prev").addEventListener("click", () => cambiarMes(-1));
+
+    function cambiarMes(dir) {
+      const mesesDOM = document.querySelectorAll(".mes");
+      mesesDOM[mesActual].classList.remove("active");
+      mesActual = (mesActual + dir + 1) % 1;
+      mesesDOM[mesActual].classList.add("active");
+      nombreMes.textContent = `${meses[mesActual]} 2025`;
+    }
     </script>
     
 </body>

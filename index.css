@@ -260,3 +260,130 @@ html, body {
         height: 500px;
     }
 }
+    /* ======== CALENDARIO ======== */
+    .calendario-container {
+      background: #e6e6e6;
+      padding: 30px 10px;
+      text-align: center;
+      color: #000;
+      font-family: "Arial", sans-serif;
+    }
+
+    .calendario-container .titulo {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .linea {
+      width: 80px;
+      height: 3px;
+      background: gold;
+      margin: 0 auto 15px;
+    }
+
+    .descripcion {
+      max-width: 600px;
+      margin: 0 auto 10px;
+      font-size: 15px;
+      color: #444;
+    }
+
+    .ver-actividades {
+      display: inline-block;
+      margin-bottom: 25px;
+      font-weight: 600;
+      text-decoration: none;
+      color: #000;
+      transition: 0.3s;
+    }
+
+    .ver-actividades:hover {
+      color: gold;
+    }
+
+    .encabezado-mes {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .btn-hoy, .btn-prev, .btn-next {
+      background: gold;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn-hoy:hover, .btn-prev:hover, .btn-next:hover {
+      background: #caa800;
+    }
+
+    .mes h2 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .calendario {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+      justify-items: center;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    .dia {
+      width: 100%;
+      padding: 10px 0;
+      border: 1px solid #999;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    .encabezado {
+      background: #000;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .hoy {
+      background: #fff9cc;
+      border: 2px solid gold;
+    }
+
+    .mes {
+      display: none;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+
+    .mes.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .calendario {
+        max-width: 100%;
+        font-size: 13px;
+      }
+      .dia { padding: 8px 0; }
+      .titulo { font-size: 24px; }
+    }
+
+    @media (max-width: 480px) {
+      .encabezado-mes { flex-direction: column; gap: 8px; }
+      .btn-prev, .btn-next { padding: 5px 10px; }
+      .titulo { font-size: 22px; }
+    }
+  
