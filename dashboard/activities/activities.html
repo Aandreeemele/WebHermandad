@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../index.css">
+  <title>Hermandad Jesús del Aposento</title>
+</head>
+<body>
+  <header class="header">
+    <img src="../../assets/escudo.png" alt="Escudo" class="imgEscudo">    
+    <div class="menu" id="menuBtn">☰</div>
+
+    <!-- Menú lateral -->
+    <nav class="navMenu" id="navMenu">
+      <div class="closeBtn" id="closeBtn">×</div>
+      <ul>
+        <li><a href="../../index.html">Inicio</a></li>
+        <li><a href="#">Historia</a></li>
+        <li><a href="../agenda/agenda.html">Imágenes</a></li>
+        <li><a href="./dashboard/devotos/devotos.html">Devotos</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <script>
+     // ===== MENÚ =====
+     const menuBtn = document.getElementById("menuBtn");
+    const navMenu = document.getElementById("navMenu");
+    const closeBtn = document.getElementById("closeBtn");
+
+    menuBtn.addEventListener("click", () => navMenu.classList.add("active"));
+    closeBtn.addEventListener("click", () => navMenu.classList.remove("active"));
+    document.addEventListener("click", (e) => {
+      if (!navMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+        navMenu.classList.remove("active");
+      }
+    });
+  </script>
